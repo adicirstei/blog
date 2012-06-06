@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 lib-cov
 *.seed
 *.log
@@ -12,4 +13,20 @@ logs
 results
 
 node_modules
+=======
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+node_modules
+>>>>>>> 5276a2f3ef397b68e062e8422fd8b7bcb84a34f1
 npm-debug.log
