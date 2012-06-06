@@ -1,3 +1,3 @@
 {
-    "couchurl":"http://user:pass@subdom.iriscouch.com/db_name"
+    "couchurl":"http://user:pass@subdom.iriscouch.com:12345/db_name"
 }
