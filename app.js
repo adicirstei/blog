@@ -4,7 +4,8 @@
  */
 var app = require('./expressapp');  
 var routes = require('./routes')
-  , settings = require('./settings');
+  , settings = require('./settings')
+  , auth = require('./auth.js').setup();
   
 
 
