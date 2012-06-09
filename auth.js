@@ -1,5 +1,3 @@
-
-
 var everyauth = require('everyauth')
   , settings = require('./settings')
   , Promise = everyauth.Promise;
@@ -14,7 +12,7 @@ var UserSchema = new Schema({})
   , User;
 
 var mongooseAuth = require('mongoose-auth');
-
+console.log(settings);
 exports.setup = function (){
     UserSchema.plugin(mongooseAuth, {
         everymodule: {
