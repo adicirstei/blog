@@ -3,11 +3,7 @@
  * Module dependencies.
  */
 var app = require('./expressapp');  
-var routes = require('./routes')
-  , settings = require('./settings')
-  , auth = require('./auth.js').setup();
-  
-
+var routes = require('./routes');
 
 // Routes
 routes.setup(app);

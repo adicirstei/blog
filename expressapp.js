@@ -1,8 +1,11 @@
 var express = require('express');
-
+var auth = require('./auth.js');
 var app = module.exports = express.createServer();
 
 // Configuration
+
+
+auth.setup();
 
 app.configure(function(){
   app.use(express.cookieParser());
@@ -13,6 +16,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  auth.middleware();
 });
 app.dynamicHelpers({
   session: function(req, res){
@@ -26,5 +30,5 @@ app.configure('development', function(){
 app.configure('production', function(){
   app.use(express.errorHandler());
 });
-
+auth.helpExpress(app);
 exports = app;
