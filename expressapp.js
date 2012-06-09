@@ -14,9 +14,10 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  auth.middleware();
   app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  auth.middleware();
+  
 });
 app.dynamicHelpers({
   session: function(req, res){
