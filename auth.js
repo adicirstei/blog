@@ -12,8 +12,8 @@ var UserSchema = new Schema({})
   , User;
 
 var mongooseAuth = require('mongoose-auth');
-
-exports.setup = function (){
+module.exports = exports = mongooseAuth;
+module.exports.setup = exports.setup = function (){
     UserSchema.plugin(mongooseAuth, {
         everymodule: {
           everyauth: {
@@ -91,4 +91,3 @@ exports.setup = function (){
     User = mongoose.model('User');
 
 }
-module.exports = exports = mongooseAuth;
