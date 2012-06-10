@@ -10,7 +10,7 @@ var mongoose = require('mongoose')
 
 var UserSchema = new Schema({})
   , User;
-
+debugger;
 var mongooseAuth = require('mongoose-auth');
 module.exports = exports = mongooseAuth;
 module.exports.setup = exports.setup = function (){
