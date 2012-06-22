@@ -21,11 +21,19 @@ exports.setup = function(app){
     app.get('/db', function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
-                res.render('db', {data: err});
+                res.render('db', {data: err, s: req.session});
             }else{
-                res.render('db', {data: docs});
+                res.render('db', {data: docs, s: req.session});
             }
         });
         
     });
+}
+
+function isauth(req, res, next){
+    if(req.session.user){
+        next();
+    }else{
+        res.redirect('/');
+    }
 }
