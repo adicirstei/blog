@@ -19,7 +19,7 @@ exports.setup = function(app){
         res.render('login');
     });
     app.get('/db', function(req, res){
-        mongoose.find({}, function(err, docs){
+        mongoose.model('User').find({}, function(err, docs){
             if(err){
                 res.render('db', {data: err});
             }else{
