@@ -18,7 +18,7 @@ exports.setup = function(app){
     app.get('/login', function(req, res){
         res.render('login');
     });
-    app.get('/db', function(req, res){
+    app.get('/db', isauth, function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
                 res.render('db', {data: err, s: JSON.stringify(req.session)});
@@ -31,7 +31,8 @@ exports.setup = function(app){
 }
 
 function isauth(req, res, next){
-    if(req.session.user){
+    var li = req.session.auth &&  req.session.auth.loggedIn;
+    if(li){
         next();
     }else{
         res.redirect('/');
