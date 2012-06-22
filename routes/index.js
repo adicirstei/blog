@@ -21,9 +21,9 @@ exports.setup = function(app){
     app.get('/db', function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
-                res.render('db', {data: err, s: req.session});
+                res.render('db', {data: err, s: JSON.stringify(req.session)});
             }else{
-                res.render('db', {data: docs, s: req.session});
+                res.render('db', {data: docs, s: JSON.stringify(req.session)});
             }
         });
         
