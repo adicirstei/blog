@@ -1,23 +1,34 @@
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost/blog');
+var mongoose;
 
 
 /*
  * GET home page.
  */
-exports.setup = function(app){
+exports.setup = function(options){
+	mongoose = options.db;
+	app = options.app;
+	
     app.get('/', function(req, res){
-        res.render('home', { title: 'Express' })
+        res.render('index', { title: 'Express' })
     });
     
     app.get('/logout', function (req, res) {
-        req.logout();
+        req.session.user = null;
         res.redirect('/');
     });
     app.get('/login', function(req, res){
         res.render('login');
     });
+	
+	app.post('/login', function(req, res){
+		auth.login(req.body.username, req.body.password, function(user){
+			if (user){ 
+				req.session.user = user;
+			}
+		});
+	});
+	
+	
     app.get('/db', isauth, function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
@@ -31,7 +42,7 @@ exports.setup = function(app){
 }
 
 function isauth(req, res, next){
-    var li = req.session.auth &&  req.session.auth.loggedIn;
+    var li = req.session.user;
     if(li){
         next();
     }else{
