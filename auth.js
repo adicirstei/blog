@@ -11,12 +11,20 @@ module.exports = {
 	},
 	User: User,
 	login: function (user, pass, fn){
-		User.findOne({ username: user, password: password}, function (err, u){
+		User = mongoose.model('User');
+		console.log(User);
+		console.log(user, pass);
+		User.findOne({ username: user, password: pass}, function (err, u){
+			console.log(err, u);
 			if (err){
+				fn(null);
 			}else{
 				if(u){
 					fn(u);
+				}else{
+					fn(null);
 				}
+				
 			}
 		});
 	}

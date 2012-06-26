@@ -1,4 +1,5 @@
-var mongoose;
+var mongoose, app, auth;
+
 
 
 /*
@@ -7,6 +8,7 @@ var mongoose;
 exports.setup = function(options){
 	mongoose = options.db;
 	app = options.app;
+	auth = options.auth;
 	
     app.get('/', function(req, res){
         res.render('index', { title: 'Express' })
@@ -22,8 +24,10 @@ exports.setup = function(options){
 	
 	app.post('/login', function(req, res){
 		auth.login(req.body.username, req.body.password, function(user){
+			console.log(user);
 			if (user){ 
 				req.session.user = user;
+				res.redirect('/');
 			}
 		});
 	});
