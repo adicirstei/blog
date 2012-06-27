@@ -19,15 +19,16 @@ exports.setup = function(options){
         res.redirect('/');
     });
     app.get('/login', function(req, res){
-        res.render('login');
+        res.render('login', {source: req.query.source});
     });
 	
 	app.post('/login', function(req, res){
 		auth.login(req.body.username, req.body.password, function(user){
-			console.log(user);
 			if (user){ 
 				req.session.user = user;
-				res.redirect('/');
+				res.redirect(req.body.source? req.body.source : '/');
+			}else{
+				res.render('login', {errors: new Error('login failed')});
 			}
 		});
 	});
@@ -50,6 +51,6 @@ function isauth(req, res, next){
     if(li){
         next();
     }else{
-        res.redirect('/');
+        res.redirect('/login?source=' + req.url);
     }
 }

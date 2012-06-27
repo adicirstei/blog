@@ -7,7 +7,7 @@ var settings = require('./settings')
 var app = express.createServer();
 app.configure(function(){
   app.use(express.cookieParser());
-  app.use(express.session({ secret: "keyb0ard sat" }));
+  app.use(express.session({ secret: "keyb0ard bat" }));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
