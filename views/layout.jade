@@ -14,5 +14,13 @@ html
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
   body
+    #header
+      #logo
+      #menu
+        ul
+          li 
+            a(href='/') Home
+          li
+            a(href='/login') Log in
     #main
-      != body
+      block content

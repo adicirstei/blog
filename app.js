@@ -1,30 +1,28 @@
 var express = require('express');
 var routes = require('./routes');
 var settings = require('./settings')
+  , http = require('http')
   , auth = require('./auth');
   
   
-var app = express.createServer();
+var app = express();
 app.configure(function(){
-  app.use(express.cookieParser());
-  app.use(express.session({ secret: "keyb0ard bat" }));
+  app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+  app.use(express.favicon());
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: "keyb0ard bat" }));  
+  app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-//  mongooseAuth.middleware();
   app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.static(__dirname + '/public'));  
   
 });
 
 console.log('debug', app);
 
-//app.dynamicHelpers({
-//  session: function(req, res){
-//    return req.session;
-//  }
-//});
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
@@ -41,10 +39,8 @@ auth.setup(mongoose);
 // Routes
 routes.setup({app: app, auth: auth, db: mongoose});
 
-
-
 //console.log(settings);
-app.listen((process.env.PORT? process.env.PORT : 3000), function(){
-  console.log("Express server started on port 3000 in %s mode", app.settings.env);
 
+http.createServer(app).listen(app.get('port'), function(){
+  console.log("Express server listening on port " + app.get('port'));
 });
