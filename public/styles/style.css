@@ -1,8 +1,19 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* padding: 50px; 
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; */
 }
 
-a {
-  color: #00B7FF;
+
+
+.yui3-skin-night {
+  background-color: #000;
+  color: #eee;
 }
+
+#main, #header {
+  width:1000px;
+  margin:0 auto;
+  position:relative;
+}
+#logo {float:left;}
+#userbox{float: right;}
