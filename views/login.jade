@@ -4,14 +4,16 @@ block content
     ul#errors
       - each error in errors
         li.error= error
-  form(action='/login', method='POST')
-    - if ('undefined' !== typeof source)
-      input(name='source', type='hidden', value=source)
-    #login
-      label(for='username') Login
-      input(type='text', name='username')
-    #password
-      label(for='password') Password
-      input(type='password', name='password')
-    #submit
-      input(type='submit') Login
+  script(src='/js/login.js')
+  #loginpanel
+    form(action='/login', method='POST')
+      - if ('undefined' !== typeof source)
+        input(name='source', type='hidden', value=source)
+      #login
+        label(for='username') Login
+        input(type='text', name='username')
+      #password
+        label(for='password') Password
+        input(type='password', name='password')
+      #submit
+        input(type='submit') Login

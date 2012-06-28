@@ -11,7 +11,7 @@ exports.setup = function(options){
 	auth = options.auth;
 	
     app.get('/', function(req, res){
-        res.render('index', { title: 'Express' })
+        res.render('index', { title: 'Express', user: req.session.user })
     });
     
     app.get('/logout', function (req, res) {
@@ -37,9 +37,9 @@ exports.setup = function(options){
     app.get('/db', isauth, function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
-                res.render('db', {data: err, s: JSON.stringify(req.session)});
+                res.render('db', {data: err, s: JSON.stringify(req.session), user: req.session.user});
             }else{
-                res.render('db', {data: docs, s: JSON.stringify(req.session)});
+                res.render('db', {data: docs, s: JSON.stringify(req.session), user: req.session.user});
             }
         });
         
