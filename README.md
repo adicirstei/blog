@@ -6,7 +6,7 @@ I know there is nothing new but, in order to learn some server side JavaScript a
 todo list
 ---------
 * implement basic functionality
-  - log in
+  - ~~log in~~
   - new post
   - edit post
   - delete post
