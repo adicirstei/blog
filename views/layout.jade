@@ -19,24 +19,25 @@ html
     #pagewrapper.yui3-skin-night.yui3-cssbase
       #header
         #logo
-          | just another blog
+          a.yui3-skin-night(href='/') just another blog
         #userbox
           - if('undefined' !== typeof user && user && user.username)
             | Hello #{user.username}!
             | |
-            a(href='/logout') Log out
+            a.yui3-skin-night(href='/logout') Log out
           - else
             | anonymous |
-            a(href='/login') Log in
+            a.yui3-skin-night(href='/login') Log in
         #menu.yui3-menu.yui3-menu-horizontal
           .yui3-menu-content
             ul
               li.yui3-menuitem 
                 a.yui3-menuitem-content(href='/') Home
               li.yui3-menuitem
-                a.yui3-menuitem-content(href='/login') Log in
-              li.yui3-menuitem
-                a.yui3-menuitem-content(href='/logout') Log out              
+                a.yui3-menuitem-content(href='/about') About me
+              - if('undefined' !== typeof user && user && user.username)
+                li.yui3-menuitem
+                  a.yui3-menuitem-content(href='/edit') New post              
       #main.yui3-g
         #posts.yui3-u-19-24
           block content

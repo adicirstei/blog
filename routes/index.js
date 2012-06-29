@@ -28,12 +28,20 @@ exports.setup = function(options){
 				req.session.user = user;
 				res.redirect(req.body.source? req.body.source : '/');
 			}else{
-				res.render('login', {errors: new Error('login failed')});
+				res.render('login', {errors: [new Error('login failed')]});
 			}
 		});
 	});
 	
-	
+	app.get('/edit/:pid?', isauth, function(req, res){
+        res.render('edit', {post: {}, user: req.session.user });
+    });
+    app.put('/edit', isauth, function(req, res){
+        res.redirect('/');
+    });
+    app.del('/edit', isauth, function(req, res){
+        res.redirect('/');
+    });
     app.get('/db', isauth, function(req, res){
         mongoose.model('User').find({}, function(err, docs){
             if(err){
