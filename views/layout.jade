@@ -2,9 +2,9 @@
 html
   head
     title blog
+    link(rel='stylesheet', href='http://yui.yahooapis.com/3.5.1/build/cssgrids/grids-min.css')
     link(rel='stylesheet', href='/styles/style.css')
-    script(src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js")
-    script(src="/js/ui.js")
+    
     script
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-3192288-12']);
@@ -15,24 +15,34 @@ html
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-  body.yui3-skin-night.yui3-cssbase
-    #header
-      #logo
-      #userbox
-        - if('undefined' !== typeof user && user && user.username)
-          | Hello #{user.username}!
-          a(href='/logout') Log out
-        - else
-          | anonymous |
-          a(href='/login') Log in
-      #menu.yui3-menu.yui3-menu-horizontal
-        .yui3-menu-content
-          ul
-            li.yui3-menuitem 
-              a.yui3-menuitem-content(href='/') Home
-            li.yui3-menuitem
-              a.yui3-menuitem-content(href='/login') Log in
-            li.yui3-menuitem
-              a.yui3-menuitem-content(href='/logout') Log out              
-    #main
-      block content
+  body
+    #pagewrapper.yui3-skin-night.yui3-cssbase
+      #header
+        #logo
+          | just another blog
+        #userbox
+          - if('undefined' !== typeof user && user && user.username)
+            | Hello #{user.username}!
+            | |
+            a(href='/logout') Log out
+          - else
+            | anonymous |
+            a(href='/login') Log in
+        #menu.yui3-menu.yui3-menu-horizontal
+          .yui3-menu-content
+            ul
+              li.yui3-menuitem 
+                a.yui3-menuitem-content(href='/') Home
+              li.yui3-menuitem
+                a.yui3-menuitem-content(href='/login') Log in
+              li.yui3-menuitem
+                a.yui3-menuitem-content(href='/logout') Log out              
+      #main.yui3-g
+        #posts.yui3-u-19-24
+          block content
+        #nav.yui3-u-5-24
+          block navigation
+            h3 Navigation
+    block scripts
+      script(src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js")
+      script(src="/js/ui.js")

@@ -4,7 +4,6 @@ block content
     ul#errors
       - each error in errors
         li.error= error
-  script(src='/js/login.js')
   #loginpanel
     form(action='/login', method='POST')
       - if ('undefined' !== typeof source)
@@ -17,3 +16,5 @@ block content
         input(type='password', name='password')
       #submit
         input(type='submit') Login
+block append scripts
+  script(src="/js/login.js")

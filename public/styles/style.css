@@ -1,19 +1,32 @@
 body {
   /* padding: 50px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; 
+  background-color: #252525;
 }
 
-
+#header a{
+  color:#fff;
+  text-decoration:none;
+}
 
 .yui3-skin-night {
   background-color: #000;
   color: #eee;
 }
 
-#main, #header {
+#pagewrapper {
   width:1000px;
   margin:0 auto;
   position:relative;
 }
-#logo {float:left;}
+
+#menu{
+  clear:both;
+}
+
+#logo {
+  padding: 0.5em;
+  float:left;
+  font-size:3em;
+}
 #userbox{float: right;}
