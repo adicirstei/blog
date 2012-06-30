@@ -1,9 +1,8 @@
 var express = require('express');
 var routes = require('./routes');
 var settings = require('./settings')
-  , http = require('http')
-  , auth = require('./auth');
-  
+  , http = require('http');
+
   
 var app = express();
 app.configure(function(){
@@ -31,13 +30,9 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/blog');
-
-auth.setup(mongoose);
 
 // Routes
-routes.setup({app: app, auth: auth, db: mongoose});
+routes.setup({app: app});
 
 //console.log(settings);
 

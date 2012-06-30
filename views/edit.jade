@@ -2,7 +2,17 @@ extends layout
 
 block content
   - if('undefined' !== typeof post)
-    form
+    form(method='POST')
+      input(type='hidden', name='_method', value='put')
+      input(type='hidden', name='post[id]', value= post._id)
+      input(name='post[title]', type='text', size='40', value = post.title)
+      input(type='submit', value='Save') 
+      br
+      textarea(name='post[body]', rows='20', cols='80', value = post.body, text = post.body)
+      input(name='post[tags]', type='text', size='80', value = post.jtags)
+      br
+      pre
+        != post
   - else
     h2 invalid post
 
