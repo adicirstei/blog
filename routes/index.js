@@ -49,7 +49,7 @@ exports.setup = function(options){
     }
   });
 
-  app.put('/edit/:pid?', isauth, function(req, res){
+  app.put('/editxx/:pid?', isauth, function(req, res){
     var post = req.body.post;
     var dbpost, pid;
     pid = post.id || req.params.pid;
@@ -78,6 +78,19 @@ exports.setup = function(options){
     }
     res.redirect('/');
   });
+  app.put('/edit/:pid?', isauth, function(req, res){
+    var post = req.body.post;
+    if(!req.params.pid) {
+      // save new post
+      post.author = req.session.user._id;
+    } 
+    post.save(function(err) {
+      console.log('error', err);
+      res.redirect('/');
+    });
+  });
+  
+  
   app.del('/edit/:pid', isauth, function(req, res){
       res.redirect('/');
   });

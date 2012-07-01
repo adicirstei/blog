@@ -4,7 +4,8 @@ block content
   - if('undefined' !== typeof post)
     form(method='POST')
       input(type='hidden', name='_method', value='put')
-      input(type='hidden', name='post[id]', value= post._id)
+      input(type='hidden', name='post[_id]', value= post._id)
+      input(type='hidden', name='post[author]', value= post.author)
       input(name='post[title]', type='text', size='40', value = post.title)
       input(type='submit', value='Save') 
       br
