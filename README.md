@@ -7,12 +7,12 @@ todo list
 ---------
 * implement basic functionality
   - ~~log in~~
-  - new post
+  - ~~new post~~
   - edit post
   - delete post
   - unpublish/hide post
   - search
-  - tags
+  - ~~tags~~
 * add a nice & clean client side design
 
  

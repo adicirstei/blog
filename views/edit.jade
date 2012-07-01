@@ -8,7 +8,8 @@ block content
       input(name='post[title]', type='text', size='40', value = post.title)
       input(type='submit', value='Save') 
       br
-      textarea(name='post[body]', rows='20', cols='80', value = post.body, text = post.body)
+      textarea(name='post[body]', rows='20', cols='80')
+        != post.body
       input(name='post[tags]', type='text', size='80', value = post.jtags)
       br
       pre

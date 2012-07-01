@@ -1,5 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  - each p in posts
+    .blogpost
+      .title
+        a(href='/post/#{p._id}')
+          h2.ptitle
+            != p.title
+      .tags tags:
+        - each t in p.tags
+          span.tag
+            a(href='/tag/#{t}')!= t
+      .body
+        != p.body
+  #pages page : :
+    - var pp = +page - 1
+    - var np = +page + 1
+    - if (pp === 0)
+      span prev
+    - else
+      a(href='/#{pp}') prev
+    - if (np > total)
+      span next
+    - else
+      a(href='/#{np}') next
+    

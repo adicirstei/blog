@@ -7,11 +7,6 @@ var BlogPost = models.BlogPost,
 exports.setup = function(options){
 	app = options.app;
 
-  app.get('/', function(req, res){
-  
-      res.render('index', { title: 'Express', user: req.session.user })
-  });
-  
   app.get('/logout', function (req, res) {
       req.session.user = null;
       res.redirect('/');
@@ -31,40 +26,34 @@ exports.setup = function(options){
 		});
 	});
 	
-	app.get('/edit/:year?/:month?/:day?/:title?',  function(req, res) {
-    var y, m, d, t, p;
-    y = req.params.year;
-    m = req.params.month;
-    d = req.params.day;
-    t = req.params.title;
-    p = y || m || d || t;
-    if (y && m && d && t) {
-      BlogPost.find({title:'test test'}, function(err, posts) {
+	app.get('/edit/:pid?', isauth, function(req, res) {
+    var pid;
+    pid = req.params.pid;
+    
+    if (pid) {
+      BlogPost.findById(pid, function(err, post) {
         console.log('error', err);
-        console.log('info', posts[0]);
-        console.log('info', y, m, d, t);
-        if (!err && posts) {
+        console.log('info', post);
+        console.log('info', pid);
+        if (!err && post) {
           // edit existing post
-          res.render('edit', {post: posts[0], user: req.session.user});
+          res.render('edit', {post: post, user: req.session.user});
         } else {
+          console.log('warn', 'Invalid Id');
           res.redirect('/');
-          
         }
       });
-    
-    } else if (p) {
-      // malformed url
-      console.log('warn', 'malformed URL');
-      res.redirect('/');
     } else {
       // new post
       res.render('edit', {post: new BlogPost(), user: req.session.user });
     }
   });
-  app.put('/edit', isauth, function(req, res){
+
+  app.put('/edit/:pid?', isauth, function(req, res){
     var post = req.body.post;
-    var dbpost;
-    if(post.id) {
+    var dbpost, pid;
+    pid = post.id || req.params.pid;
+    if(pid) {
       // try to update document by id
       BlogPost.update({_id: post.id}, {title: post.title, body: post.body, tags: post.tags.split(',')}
       , function(err, numAfect){
@@ -97,9 +86,26 @@ exports.setup = function(options){
               res.render('db', {data: docs, s: JSON.stringify(req.session), user: req.session.user});
           }
       });
+  });
+  app.get('/:pag?', function(req, res){
+    var pag = req.params.pag || 1;
+    pag = (pag < 1 ? 1 : pag);
+    var ponpage = 5;
+    var totalposts = 0;
+    var pages;
+    BlogPost.count({}, function(err, c){
+      if (!err){
+        totalposts = c;
+      }
+      pages = Math.ceil(totalposts / ponpage);
       
+      BlogPost.find().desc('date').skip(ponpage * (pag - 1)).limit(ponpage).exec(function(err, posts){
+        res.render('index', {posts: posts, page: pag, total: pages});
+      });
+    });
   });
 }
+
 
 function isauth(req, res, next){
     var li = req.session.user;

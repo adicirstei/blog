@@ -42,3 +42,27 @@ body {
 .tbb {
   float: left;
 }
+
+#pages a {
+  text-decoration: none;
+  color: #eee;
+  padding-left: 0.5em;
+}
+#pages span {
+  color: #999;
+  padding-left: 0.5em;
+}
+
+.blogpost {
+  margin: 1em;
+}
+.blogpost a {
+  text-decoration: none;
+  color: #ffbb00;
+}
+.tag {
+  border: solid 1px #bbb;
+  background: #111;
+  margin: 1px;
+  padding:1px;
+}
