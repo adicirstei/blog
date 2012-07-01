@@ -1,26 +1,27 @@
 var app;
 var models = require('../models');
 var auth = require('../auth');
-var BlogPost = models.BlogPost,
-    User = models.User;
+var BlogPost = models.BlogPost;
+var User = models.User;
 
-exports.setup = function(options){
+exports.setup = function(options) {
 	app = options.app;
 
   app.get('/logout', function (req, res) {
       req.session.user = null;
       res.redirect('/');
   });
-  app.get('/login', function(req, res){
+  
+  app.get('/login', function(req, res) {
       res.render('login', {source: req.query.source});
   });
 	
-	app.post('/login', function(req, res){
+	app.post('/login', function(req, res) {
 		auth.login(req.body.username, req.body.password, function(user){
-			if (user){ 
+			if (user) { 
 				req.session.user = user;
 				res.redirect(req.body.source? req.body.source : '/');
-			}else{
+			} else {
 				res.render('login', {errors: [new Error('login failed')]});
 			}
 		});
@@ -49,7 +50,7 @@ exports.setup = function(options){
     }
   });
 
-  app.put('/edit/:pid?', isauth, function(req, res){
+  app.put('/edit/:pid?', isauth, function(req, res) {
     var post = req.body.post;
     var dbpost;
     if(!req.params.pid) {
@@ -78,35 +79,41 @@ exports.setup = function(options){
   });
   
   
-  app.del('/edit/:pid', isauth, function(req, res){
+  app.del('/edit/:pid', isauth, function(req, res) {
       res.redirect('/');
   });
 
-  app.get('/:pag?', function(req, res){
+  app.get('/:pag?', function(req, res) {
     var pag = req.params.pag || 1;
     pag = (pag < 1 ? 1 : pag);
     var ponpage = 5;
     var totalposts = 0;
     var pages;
-    BlogPost.count({}, function(err, c){
-      if (!err){
+    BlogPost.count({}, function(err, c) {
+      if (!err) {
         totalposts = c;
       }
       pages = Math.ceil(totalposts / ponpage);
-      
-      BlogPost.find().desc('date').skip(ponpage * (pag - 1)).limit(ponpage).exec(function(err, posts){
-        res.render('index', {posts: posts, page: pag, total: pages, user: req.session.user});
-      });
+      BlogPost
+        .find()
+        .sort('date', -1)
+        .skip(ponpage * (pag - 1))
+        .limit(ponpage)
+        .exec(afterFind);
     });
+    
+    function afterFind(err, posts) {
+        res.render('index', {posts: posts, page: pag, total: pages, user: req.session.user});
+    }
   });
 }
 
 
-function isauth(req, res, next){
+function isauth(req, res, next) {
     var li = req.session.user;
-    if(li){
+    if(li) {
         next();
-    }else{
+    } else {
         res.redirect('/login?source=' + req.url);
     }
 }

@@ -10,17 +10,12 @@ var hash = function(data){
 }
 module.exports = {
 	login: function (user, pass, fn){
-		User.findOne({ username: user, password: hash(pass)}, function (err, u){
-			console.log(err, u);
-			if (err){
+		User.findOne({ username: user, password: hash(pass)}, ['username', 'email'], function (err, u){
+			if (err || !u){
 				fn(null);
-			}else{
-				if(u){
-					fn(u);
-				}else{
-					fn(null);
-				}
+        return;
 			}
+      fn(u);
 		});
 	}
 };

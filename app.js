@@ -1,10 +1,10 @@
 var express = require('express');
 var routes = require('./routes');
-var settings = require('./settings')
-  , http = require('http');
-
+var settings = require('./settings');
+var http = require('http');
   
 var app = express();
+
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
@@ -19,8 +19,6 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));  
   
 });
-
-console.log('debug', app);
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
