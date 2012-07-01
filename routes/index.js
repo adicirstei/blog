@@ -78,15 +78,7 @@ exports.setup = function(options){
   app.del('/edit', isauth, function(req, res){
       res.redirect('/');
   });
-  app.get('/db', isauth, function(req, res){
-      mongoose.model('User').find({}, function(err, docs){
-          if(err){
-              res.render('db', {data: err, s: JSON.stringify(req.session), user: req.session.user});
-          }else{
-              res.render('db', {data: docs, s: JSON.stringify(req.session), user: req.session.user});
-          }
-      });
-  });
+
   app.get('/:pag?', function(req, res){
     var pag = req.params.pag || 1;
     pag = (pag < 1 ? 1 : pag);
@@ -100,7 +92,7 @@ exports.setup = function(options){
       pages = Math.ceil(totalposts / ponpage);
       
       BlogPost.find().desc('date').skip(ponpage * (pag - 1)).limit(ponpage).exec(function(err, posts){
-        res.render('index', {posts: posts, page: pag, total: pages});
+        res.render('index', {posts: posts, page: pag, total: pages, user: req.session.user});
       });
     });
   });
