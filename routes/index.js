@@ -56,7 +56,7 @@ exports.setup = function(options){
       // save new post
       post.author = req.session.user._id;
       dbpost = new BlogPost(post);
-      dbpost.tags = post.tags.split(',');
+      dbpost.tags = post.tags.trim().split(/\s*,\s*/g);
       dbpost.save(function(err) {
         console.log('error', err);
         res.redirect('/');
@@ -64,7 +64,7 @@ exports.setup = function(options){
     } else {
       // update existing
       BlogPost.update({_id: post._id}, {
-          tags: post.tags.split(','),
+          tags: post.tags.trim().split(/\s*,\s*/g),
           body: post.body,
           title: post.title
         },

@@ -4,6 +4,7 @@ var Schema = mongoose.Schema
 var UserSchema = new Schema({username: String, email: String, password: String, fullname: String});
 mongoose.model('User', UserSchema);
 
+
 var BlogPostSchema = new Schema({
   author: {type: ObjectId, ref: 'User'}, 
   date: {type: Date, index: true, default: Date.now}, 
