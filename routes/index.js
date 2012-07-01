@@ -49,45 +49,32 @@ exports.setup = function(options){
     }
   });
 
-  app.put('/editxx/:pid?', isauth, function(req, res){
-    var post = req.body.post;
-    var dbpost, pid;
-    pid = post.id || req.params.pid;
-    console.log('pid : ', pid);
-    if(pid) {
-      // try to update document by id
-      BlogPost.update({_id: post.id}, {title: post.title, body: post.body, tags: post.tags.split(',')}
-      , function(err, numAfect){
-        if (err) {
-          console.log('error', err);
-        }
-      });
-    } else {
-      // add new post
-      console.log('new blogpost');
-      dbpost = new BlogPost();
-      dbpost.title = post.title;
-      dbpost.body = post.body;
-      dbpost.tags = post.tags.split(',');
-      dbpost.author = req.session.user._id;
-      dbpost.comments = [];
-      
-      dbpost.save(function(err) {
-        console.log('error', err);
-      });
-    }
-    res.redirect('/');
-  });
   app.put('/edit/:pid?', isauth, function(req, res){
     var post = req.body.post;
+    var dbpost;
     if(!req.params.pid) {
       // save new post
       post.author = req.session.user._id;
-    } 
-    post.save(function(err) {
-      console.log('error', err);
-      res.redirect('/');
-    });
+      dbpost = new BlogPost(post);
+      dbpost.tags = post.tags.split(',');
+      dbpost.save(function(err) {
+        console.log('error', err);
+        res.redirect('/');
+      });
+    } else {
+      // update existing
+      BlogPost.update({_id: post._id}, {
+          tags: post.tags.split(','),
+          body: post.body,
+          title: post.title
+        },
+      function(err, affected) {
+        if(err) {
+          console.log('error', err);
+        }
+        res.redirect('/');
+      });
+    }
   });
   
   
