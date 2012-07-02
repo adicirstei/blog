@@ -7,6 +7,10 @@ block content
         a(href='/post/#{p._id}')
           h2.ptitle
             != p.title
+      - if (user)
+        .pcontrols
+          a(href='/edit/#{p._id}') edit
+          a(href='/del/#{p._id}') delete
       .tags tags:
         - each t in p.tags
           span.tag

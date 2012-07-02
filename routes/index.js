@@ -33,9 +33,6 @@ exports.setup = function(options) {
     
     if (pid) {
       BlogPost.findById(pid, function(err, post) {
-        console.log('error', err);
-        console.log('info', post);
-        console.log('info', pid);
         if (!err && post) {
           // edit existing post
           res.render('edit', {post: post, user: req.session.user});
@@ -67,6 +64,7 @@ exports.setup = function(options) {
       BlogPost.update({_id: post._id}, {
           tags: post.tags.trim().split(/\s*,\s*/g),
           body: post.body,
+          published: post.published,
           title: post.title
         },
       function(err, affected) {
@@ -89,13 +87,14 @@ exports.setup = function(options) {
     var ponpage = 5;
     var totalposts = 0;
     var pages;
-    BlogPost.count({}, function(err, c) {
+    var filter = (req.session.user ? {} : {published: true});
+    BlogPost.count(filter, function(err, c) {
       if (!err) {
         totalposts = c;
       }
       pages = Math.ceil(totalposts / ponpage);
       BlogPost
-        .find()
+        .find(filter)
         .sort('date', -1)
         .skip(ponpage * (pag - 1))
         .limit(ponpage)

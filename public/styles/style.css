@@ -66,3 +66,7 @@ body {
   margin: 1px;
   padding:1px;
 }
+
+.pcontrols a {
+  padding-left: 2px;
+}

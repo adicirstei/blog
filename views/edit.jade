@@ -12,9 +12,9 @@ block content
       textarea(name='post[body]', rows='20', cols='80')
         != post.body
       input(name='post[tags]', type='text', size='80', value = post.jtags)
+      label(for='post[published]') Publish
+      input(name='post[published]', type='checkbox', checked = post.published)
       br
-      pre
-        != post
   - else
     h2 invalid post
 

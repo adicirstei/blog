@@ -11,6 +11,7 @@ var BlogPostSchema = new Schema({
   title: {type: String, index: true}, 
   body: String, 
   tags: [String],
+  published: {type: Boolean, default: true},
   comments: [{
     email: String,
     date: {type: Date, index: true},
@@ -18,18 +19,6 @@ var BlogPostSchema = new Schema({
   }]
 });
   
-BlogPostSchema.virtual('year').get(function() {
-  return this.date.getYear();
-});
-BlogPostSchema.virtual('month').get(function() {
-  return this.date.getMonth();
-});
-BlogPostSchema.virtual('day').get(function() {
-  return this.date.getDate();
-});  
-BlogPostSchema.virtual('t').get(function() {
-  return this.title.replace(/[^a-z]/gi, '-');
-});
 BlogPostSchema.virtual('jtags').get(function() {
   return this.tags.join(',');
 });

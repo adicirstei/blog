@@ -10,7 +10,7 @@ todo list
   - ~~new post~~
   - edit post
   - delete post
-  - unpublish/hide post
+  - ~~unpublish/hide post~~
   - search
   - ~~tags~~
 * add a nice & clean client side design
