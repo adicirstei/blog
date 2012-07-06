@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  .blogpost
+    .title
+      a(href='/post/#{post._id}')
+        h2.ptitle
+          != post.title
+    - if (user)
+      .pcontrols
+        a(href='/edit/#{post._id}') edit
+        a(href='/del/#{post._id}') delete
+    .tags tags:
+      - each t in post.tags
+        span.tag
+          a(href='/tag/#{t}')= t
+    .body
+      != post.body
+  #newcomment
+    form(method='POST')
+      input(type='text', name='comment[email]')
+      br
+      textarea(name='comment[comment]', rows='6', cols='30')
+      br
+      input(type='submit', value='save')
+  #comments
+    - each c in post.comments
+      .comment = c.comment
+        
+    
+    

@@ -18,8 +18,8 @@ block content
       .body
         != p.body
   #pages page : :
-    - var pp = +page - 1
-    - var np = +page + 1
+    - var pp = Math.min(+page - 1, total)
+    - var np = +page + 1 
     - if (pp === 0)
       span prev
     - else

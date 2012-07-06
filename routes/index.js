@@ -16,17 +16,36 @@ exports.setup = function(options) {
       res.render('login', {source: req.query.source});
   });
 	
-	app.post('/login', function(req, res) {
-		auth.login(req.body.username, req.body.password, function(user){
-			if (user) { 
-				req.session.user = user;
-				res.redirect(req.body.source? req.body.source : '/');
-			} else {
-				res.render('login', {errors: [new Error('login failed')]});
-			}
-		});
-	});
-	
+    app.post('/login', function(req, res) {
+        auth.login(req.body.username, req.body.password, function(user){
+            if (user) { 
+                req.session.user = user;
+                res.redirect(req.body.source? req.body.source : '/');
+            } else {
+                res.render('login', {errors: [new Error('login failed')]});
+            }
+        });
+    });
+    
+  app.get('/post/:pid?', function(req, res) {
+    var pid;
+    pid = req.params.pid;
+    
+    if (pid) {
+      BlogPost.findById(pid, function(err, post) {
+        if (!err && post) {
+          // render existing post
+          res.render('post', {post: post, user: req.session.user});
+        } else {
+          console.log('warn', 'Invalid Id');
+          res.redirect('/');
+        }
+      });
+    } else {
+      // no post id speciffied, just go to home
+      res.redirect('/', {user: req.session.user });
+    }
+  });	
 	app.get('/edit/:pid?', isauth, function(req, res) {
     var pid;
     pid = req.params.pid;
@@ -80,7 +99,35 @@ exports.setup = function(options) {
   app.del('/edit/:pid', isauth, function(req, res) {
       res.redirect('/');
   });
+  
+  app.get('/tag/:tag/:pag?', function(req, res) {
+    var pag = req.params.pag || 1;
+    var tag = req.params.tag;
+    pag = (pag < 1 ? 1 : pag);
+    var ponpage = 5;
+    var totalposts = 0;
+    var pages;
+    var filter = (req.session.user ? {} : {published: true});
+    filter.tags = tag;
 
+    BlogPost.count(filter, function(err, c) {
+      if (!err) {
+        totalposts = c;
+      }
+      pages = Math.ceil(totalposts / ponpage);
+      BlogPost
+        .find(filter)
+        .sort('date', -1)
+        .skip(ponpage * (pag - 1))
+        .limit(ponpage)
+        .exec(afterFind);
+    });
+    
+    function afterFind(err, posts) {
+        res.render('index', {posts: posts, page: pag, total: pages, user: req.session.user});
+    }
+  });
+  
   app.get('/:pag?', function(req, res) {
     var pag = req.params.pag || 1;
     pag = (pag < 1 ? 1 : pag);
