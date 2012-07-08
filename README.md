@@ -1,7 +1,8 @@
 blog
 ====
 
-I know there is nothing new but, in order to learn some server side JavaScript and node.js, I am doing this project.
+I know there is nothing new but, in order to learn some server side JavaScript and node.js, I am doing this project. 
+I also know node is not for CRUD apps.
 
 todo list
 ---------
