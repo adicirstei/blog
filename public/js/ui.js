@@ -1,10 +1,13 @@
-YUI({ skin: 'night',
-  logLevel : 'error'       // Show only errors in the Console
+$(document).ready(function() {
 
-}).use('node-menunav', 
-function(Y) {
-    Y.on("contentready", function () {
-        this.plug(Y.Plugin.NodeMenuNav);
-    }, "#menu");
-  
+		$( ".menu-item" ).mouseenter(function(ev){
+            $(this).addClass('ui-state-hover')
+        });
+        $( ".menu-item" ).mouseleave(function(ev){
+            $(this).removeClass('ui-state-hover')
+        });
+
+//    $('#menu ul').menu({orientation: "horizontal"});
+
+        
 });

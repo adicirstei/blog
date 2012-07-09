@@ -1,22 +1,8 @@
 extends layout
 
 block content
-  - each p in posts
-    .blogpost
-      .title
-        a(href='/post/#{p._id}')
-          h2.ptitle
-            != p.title
-      - if (user)
-        .pcontrols
-          a(href='/edit/#{p._id}') edit
-          a(href='/del/#{p._id}') delete
-      .tags tags:
-        - each t in p.tags
-          span.tag
-            a(href='/tag/#{t}')!= t
-      .body
-        != p.body
+  - each post in posts
+    include blogpost
   #pages page : :
     - var pp = Math.min(+page - 1, total)
     - var np = +page + 1 

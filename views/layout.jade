@@ -2,9 +2,9 @@
 html
   head
     title blog
-    link(rel='stylesheet', href='http://yui.yahooapis.com/3.5.1/build/cssgrids/grids-min.css')
+    // link(rel='stylesheet', href='http://yui.yahooapis.com/3.5.1/build/cssgrids/grids-min.css')
     link(rel='stylesheet', href='/styles/style.css')
-    
+    link(rel='stylesheet', href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/ui-darkness/jquery-ui.css')
     script
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-3192288-12']);
@@ -16,7 +16,7 @@ html
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
   body
-    #pagewrapper.yui3-skin-night.yui3-cssbase
+    #pagewrapper
       #header
         #logo
           a.yui3-skin-night(href='/') just another blog
@@ -28,16 +28,15 @@ html
           - else
             | anonymous |
             a.yui3-skin-night(href='/login') Log in
-        #menu.yui3-menu.yui3-menu-horizontal
-          .yui3-menu-content
-            ul
-              li.yui3-menuitem 
-                a.yui3-menuitem-content(href='/') Home
-              li.yui3-menuitem
-                a.yui3-menuitem-content(href='/about') About me
-              - if('undefined' !== typeof user && user && user.username)
-                li.yui3-menuitem
-                  a.yui3-menuitem-content(href='/edit') New post              
+        #menu.ui-widget-header.ui-tabs.ui-widget
+          ul.ui-tabs-nav
+            li.menu-item
+              a(href='/') Home
+            li.menu-item
+              a(href='/about') About me
+            - if('undefined' !== typeof user && user && user.username)
+              li.menu-item
+                a(href='/edit') New post              
       #main.yui3-g
         #posts.yui3-u-19-24
           block content
@@ -45,5 +44,10 @@ html
           block navigation
             h3 Navigation
     block scripts
-      script(src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js")
+      // script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+      // script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js')
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js')
+      script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.js')
+      
+      // script(src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js")
       script(src="/js/ui.js")

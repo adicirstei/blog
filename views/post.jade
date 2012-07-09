@@ -1,21 +1,7 @@
 extends layout
 
 block content
-  .blogpost
-    .title
-      a(href='/post/#{post._id}')
-        h2.ptitle
-          != post.title
-    - if (user)
-      .pcontrols
-        a(href='/edit/#{post._id}') edit
-        a(href='/del/#{post._id}') delete
-    .tags tags:
-      - each t in post.tags
-        span.tag
-          a(href='/tag/#{t}')= t
-    .body
-      != post.body
+  include blogpost
   #newcomment
     form(method='POST')
       input(type='text', name='comment[email]')

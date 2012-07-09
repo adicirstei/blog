@@ -3,20 +3,38 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; 
   background-color: #252525;
 }
+a {
+  text-decoration: none;
+  color: #ffbb00;
+}
+
 
 #header a{
   text-decoration:none;
+  color:#fff;
 }
 
-.yui3-skin-night {
-  background-color: #000;
-  color: #eee;
+#posts, #nav{
+  display: inline-block;
+    zoom: 1; *display: inline; /* IE < 8: fake inline-block */
+    letter-spacing: normal;
+    word-spacing: normal;
+    vertical-align: top;
+
+}
+#posts{
+  width:75%;
+}
+#nav{
+  width:25%;
 }
 
 #pagewrapper {
   width:1000px;
   margin:0 auto;
   position:relative;
+  background-color: #000;
+  color: #eee;
 }
 
 #menu{
@@ -56,10 +74,7 @@ body {
 .blogpost {
   margin: 1em;
 }
-.blogpost a {
-  text-decoration: none;
-  color: #ffbb00;
-}
+
 .tag {
   border: solid 1px #bbb;
   background: #111;
@@ -69,4 +84,8 @@ body {
 
 .pcontrols a {
   padding-left: 2px;
+}
+
+#menu{
+  height:41px;
 }
