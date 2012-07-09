@@ -8,9 +8,12 @@
       a(href='/edit/#{post._id}') edit
       a(href='/del/#{post._id}') delete
   .tags
-    .ui-icon.ui-icon-tag tags:
     - each t in post.tags
       span.tag
         a(href='/tag/#{t}')!= t
+    .ui-icon.ui-icon-tag 
+  .cwrapper
+    != post.comments.length
+    .ui-icon.ui-icon-comment  
   .body
     != post.body

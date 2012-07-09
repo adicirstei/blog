@@ -23,6 +23,10 @@ BlogPostSchema.virtual('jtags').get(function() {
   return this.tags.join(',');
 });
 
+BlogPostSchema.virtual('ccount').get(function() {
+  return comments.length;
+});
+
 mongoose.model('BlogPost', BlogPostSchema);
 
 mongoose.connect('mongodb://localhost/blog');
