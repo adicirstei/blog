@@ -12,11 +12,11 @@ var BlogPostSchema = new Schema({
   body: String, 
   tags: [String],
   published: {type: Boolean, default: true},
-  comments: [{
+  comments: {type:[{
     email: String,
     date: {type: Date, index: true},
     comment: String
-  }]
+  }], default: []}
 });
   
 BlogPostSchema.virtual('jtags').get(function() {

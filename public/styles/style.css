@@ -89,6 +89,45 @@ a {
 #menu{
   height:41px;
 }
+
+span.ui-button, span.tag, .ac-group span{
+	float:left;
+}
+
+.ac-group{
+	float:left;
+	padding-right:1em;
+}
+
+a.ac-button { float:left; }
+
+.ac-body{
+	display:block;
+	clear:left;
+	padding-top:1em;
+	padding-bottom: 2em;
+	border-bottom: 2px #ccc dotted;
+}
+
+.ac-button{
+   outline: 0; 
+   margin:0 4px 0 0; 
+   padding: .4em 1em; 
+   text-decoration:none !important; 
+   cursor:pointer; 
+   position: relative; 
+   text-align: center; 
+   zoom: 1; 
+}
+.ac-button-icon-left .ui-icon {
+	right: auto;
+	left: .2em;
+	margin-left: 0;
+}
+.ac-toolbar { padding: .5em; margin: 0; width:50%; }
+.ac-toolbar .ac-buttonset { margin-right:1.5em; padding-left: 1px; }
+.ac-toolbar .ac-button { font-size: 1em;  }
+
 .ac-bar-element-group{
   padding-left: 2.1em;
   float: left;

@@ -1,6 +1,7 @@
 var express = require('express');
 var routes = require('./routes');
-var settings = require('./settings');
+//var settings = require('./settings');
+
 var http = require('http');
   
 var app = express();
