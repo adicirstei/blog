@@ -7,11 +7,12 @@
     .pcontrols
       a(href='/edit/#{post._id}') edit
       a(href='/del/#{post._id}') delete
-  .tags
+  .ac-bar-element-group.
+    span.ui-icon.ui-icon-tag
     - each t in post.tags
       span.tag
         a(href='/tag/#{t}')!= t
-    .ui-icon.ui-icon-tag 
+     
   .cwrapper
     != post.comments.length
     .ui-icon.ui-icon-comment  
