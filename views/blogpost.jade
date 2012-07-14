@@ -16,5 +16,10 @@
   .cwrapper.ac-group
     span.ui-icon.ui-icon-comment(title='comments')
     != post.comments.length
-  .ac-body
-    != post.body
+  - if(post.published)
+    .ac-body
+      != post.body
+  - else
+    .ac-body.ac-unpublished 
+      != post.body
+    
