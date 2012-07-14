@@ -7,13 +7,14 @@
     .pcontrols
       a(href='/edit/#{post._id}') edit
       a(href='/del/#{post._id}') delete
-  .ac-group
-    span.ui-icon.ui-icon-tag
-    - each t in post.tags
-      span.tag
-        a(href='/tag/#{t}')!= t
+  - if (post.tags.length && post.tags.length > 0)
+    .ac-group
+      span.ui-icon.ui-icon-tag(title='tags')
+      - each t in post.tags
+        span.tag
+          a(href='/tag/#{t}')!= t
   .cwrapper.ac-group
-    span.ui-icon.ui-icon-comment
+    span.ui-icon.ui-icon-comment(title='comments')
     != post.comments.length
   .ac-body
     != post.body

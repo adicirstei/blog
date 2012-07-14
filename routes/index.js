@@ -4,6 +4,17 @@ var auth = require('../auth');
 var BlogPost = models.BlogPost;
 var User = models.User;
 
+function makeTagArray(tags){
+  var l, i, t = tags.trim().split(/\s*,\s*/g);
+  l = t.length - 1;
+  for (i = l; i >= 0; i--) {
+    if (t[i] === '') {
+      t.splice(i, 1);
+    }
+  }
+  return t;
+}
+
 exports.setup = function(options) {
 	app = options.app;
 
@@ -73,7 +84,7 @@ exports.setup = function(options) {
       // save new post
       post.author = req.session.user._id;
       dbpost = new BlogPost(post);
-      dbpost.tags = post.tags.trim().split(/\s*,\s*/g);
+      dbpost.tags = makeTagArray(post.tags);
       dbpost.save(function(err) {
         console.log('error', err);
         res.redirect('/');
@@ -81,7 +92,7 @@ exports.setup = function(options) {
     } else {
       // update existing
       BlogPost.update({_id: post._id}, {
-          tags: post.tags.trim().split(/\s*,\s*/g),
+          tags: makeTagArray(post.tags),
           body: post.body,
           published: post.published,
           title: post.title
