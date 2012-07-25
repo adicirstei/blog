@@ -15,6 +15,6 @@ TO DO
   - search
   - ~~tags~~
 * add a nice & clean client side design
-* add markdown blog post edit support
+* ~~add markdown blog post edit support~~
 
  
