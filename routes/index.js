@@ -4,7 +4,11 @@ var auth = require('../auth');
 var BlogPost = models.BlogPost;
 var User = models.User;
 var markdown = require('markdown').markdown;
-
+var mdFn = function(code){
+  var c = code.replace(/\r\n?/g, '\n');
+  console.log(c);
+  return markdown.toHTML(c);
+};
 
 
 function makeTagArray(tags) {
@@ -54,7 +58,7 @@ exports.setup = function(options) {
         if (!err && post) {
           // render existing post
           res.render('post', {
-            markdown: markdown.toHTML,
+            markdown: mdFn,
             post: post,
             user: req.session.user
           });
@@ -153,7 +157,7 @@ exports.setup = function(options) {
 
     function afterFind(err, posts) {
       res.render('index', {
-        markdown: markdown.toHTML,
+        markdown: mdFn,
         posts: posts,
         page: pag,
         total: pages,
@@ -181,7 +185,7 @@ exports.setup = function(options) {
 
     function afterFind(err, posts) {
       res.render('index', {
-        markdown: markdown.toHTML,
+        markdown: mdFn,
         posts: posts,
         page: pag,
         total: pages,
