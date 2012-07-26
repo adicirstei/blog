@@ -135,4 +135,16 @@ a.ac-button { float:left; }
 
 .ac-unpublished {
   background-color: #171d26;
+  
+}
+
+code{
+  background-color: #222;
+  border: 1px solid #535353;
+}
+pre code{
+  margin: 0 0 0 3em;
+  padding-left: 2em;
+  display: inline-block;
+  border-left: solid 3px #795508;
 }
