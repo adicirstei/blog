@@ -7,7 +7,7 @@ var hash = function(data) {
 		shasum.update(data);
 		var d = shasum.digest('hex');
 		return d;
-	}
+};
 module.exports = {
 	login: function(user, pass, fn) {
 		User.findOne({
