@@ -9,11 +9,11 @@ TO DO
 * implement basic functionality
   - ~~log in~~
   - ~~new post~~
-  - edit post
+  - ~~edit post~~
   - delete post
   - ~~unpublish/hide post~~
   - search
   - ~~tags~~
   - add comment functionality
-* add a nice & clean client side design
+* ~~add a nice & clean client side design~~
 * ~~add markdown blog post edit support~~
